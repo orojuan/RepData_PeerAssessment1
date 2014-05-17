@@ -4,7 +4,7 @@ This assignment makes use of data from a personal activity monitoring device. Th
 
 ## Loading and preprocessing the data
 
-The variables included in this dataset are:
+We begin by reading the input file. The variables included in the dataset are:
 
 * **steps:** Number of steps taking in a 5-minute interval (missing values are coded as NA).
 * **date:** The date on which the measurement was taken in YYYY-MM-DD format.
@@ -55,7 +55,7 @@ histogram(daily, main = "Daily steps", xlab = "Steps")
 <img src="figure/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 
-the mean is 9354.2295, while the median is 1.0395 &times; 10<sup>4</sup>.
+According to the data, the mean total number of steps taken per day is **9354.2295**, while the median is **1.0395 &times; 10<sup>4</sup>**. This shows a negative skew in the distribution.
 
 
 ## What is the average daily activity pattern?
@@ -72,21 +72,21 @@ xyplot(avginter ~ as.numeric(names(avginter)), type = "l", main = "Daily activit
 <img src="figure/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
 
-From the previous plot, we can see that the interval with the maximum average steps is 835.
+From the previous plot, we can see that the interval with the maximum average steps is **835**.
 
 
 ## Imputing missing values
 
-There are a total of 2304 missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data. Therefore, we have filled in all of those by using the mean of the  corresponding 5-minute intervals:
+There are a total of **2304** missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data. Therefore, we have filled in all of those by using the rounded mean of the  corresponding 5-minute intervals:
 
 
 ```r
 mydf2 <- mydf
-mydf2$steps[is.na(mydf$steps)] <- avginter[mydf$interval[is.na(mydf$steps)]]
+mydf2$steps[is.na(mydf$steps)] <- round(avginter[mydf$interval[is.na(mydf$steps)]])
 ```
 
 
-This is how the histogram of total number of daily steps looks like:
+After dealing with missing data, this is how the histogram of total number of daily steps looks like:
 
 
 ```r
@@ -97,7 +97,7 @@ histogram(daily2, main = "Daily steps", xlab = "Steps")
 <img src="figure/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 
-Now, please notice that both the mean 1.0766 &times; 10<sup>4</sup> and the median 1.0766 &times; 10<sup>4</sup> are the same.
+Please notice that this time, both the mean **1.0766 &times; 10<sup>4</sup>** and the median **1.0762 &times; 10<sup>4</sup>** are almost the same, suggesting a symmetric distribution (Skewness has disappeared).
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
